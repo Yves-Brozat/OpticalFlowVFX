@@ -51,6 +51,9 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
     [SerializeField, Range(0f, 0.95f), Tooltip("Lissage temporel (0 = pas de lissage, 0.9+ = très smooth)")]
     float _smoothness = 0f;
 
+    [SerializeField, Tooltip("Corrige l'orientation verticale de la sortie pour l'affichage et le VFX Graph")]
+    bool _flipOutputVertically = true;
+
     #endregion
 
     #region Project asset references
@@ -62,7 +65,8 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
 
     #region Public accessors
 
-    public RenderTexture AsRenderTexture => _output.flow;
+    public RenderTexture AsRenderTexture
+      => _flipOutputVertically ? _correctedFlow : _output.flow;
 
     #endregion
 
@@ -73,6 +77,7 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
     (RenderTexture grad, RenderTexture flow) _output;
     GraphicsBuffer _diffMask;
     RenderTexture _smoothedFlow; // Pour le lissage temporel
+    RenderTexture _correctedFlow;
 
     #endregion
 
@@ -86,6 +91,7 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
         _output.grad = RTUtil.AllocHalf4(Config.FlowDims);
         _output.flow = RTUtil.AllocHalf2(Config.FlowDims);
         _smoothedFlow = RTUtil.AllocHalf2(Config.FlowDims);
+        _correctedFlow = RTUtil.AllocHalf2(Config.FlowDims);
         _diffMask = GpuBufferUtil.Alloc<float4>(1);
 
         // Initialiser les valeurs
@@ -101,6 +107,7 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
         Destroy(_output.grad);
         Destroy(_output.flow);
         Destroy(_smoothedFlow);
+        Destroy(_correctedFlow);
         _diffMask.Release();
     }
 
@@ -164,6 +171,9 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
             _blitter.Run(_output.flow, _smoothedFlow, 2); // Pass 2 = smoothing
             Graphics.Blit(_smoothedFlow, _output.flow); // Copier le résultat lissé
         }
+
+        if (_flipOutputVertically)
+            _blitter.Run(_output.flow, _correctedFlow, 3);
 
         _buffer = (_buffer.cur, _buffer.prev);
     }

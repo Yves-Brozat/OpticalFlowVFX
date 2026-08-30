@@ -125,6 +125,17 @@ float4 FragmentSmooth(float4 position : SV_Position,
     return float4(smoothedFlow, 0, 1);
 }
 
+float4 FragmentFlipVertical(float4 position : SV_Position,
+                            float2 texCoord : TEXCOORD) : SV_Target
+{
+    // Flip both the vector field position and its Y direction. Flipping only
+    // the sampled rows would place the motion correctly but reverse its
+    // vertical direction in world space.
+    float2 flow = _MainTex.Sample
+      (sampler_MainTex, float2(texCoord.x, 1 - texCoord.y)).xy;
+    return float4(flow.x, -flow.y, 0, 1);
+}
+
 ENDHLSL
 
     SubShader
@@ -154,6 +165,15 @@ ENDHLSL
             HLSLPROGRAM
             #pragma vertex Vertex
             #pragma fragment FragmentSmooth
+            ENDHLSL
+        }
+        Pass
+        {
+            ZTest Always ZWrite Off Cull Off
+            Blend Off
+            HLSLPROGRAM
+            #pragma vertex Vertex
+            #pragma fragment FragmentFlipVertical
             ENDHLSL
         }
     }
