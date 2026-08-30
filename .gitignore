@@ -1,0 +1,16 @@
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+
+/Library
+/Logs
+/Recordings
+/Temp
+/UserSettings
+
+/*.mp4
+
+# Visual Studio
+.vs/
+Assets/.vs/
