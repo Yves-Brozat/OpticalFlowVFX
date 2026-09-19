@@ -2785,7 +2785,7 @@ MonoBehaviour:
   _sourceVideo: {fileID: 32900000, guid: 6b05b56012ea3432a898b17efb7e3510, type: 3}
   <SourceCamera>k__BackingField: {fileID: 0}
   _sourceUrl: 
-  _sourceName: Brio 100
+  _sourceName: 
   _deviceResolution: {x: 480, y: 270}
   _deviceFrameRate: 30
 --- !u!4 &1912508884
