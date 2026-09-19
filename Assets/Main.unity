@@ -340,7 +340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OpticalFlowTest.OpticalFlowVisualizer
   _source: {fileID: 1912508883}
   _estimator: {fileID: 715894857}
-  _showWebcamFeed: 1
+  _showWebcamFeed: 0
   _flipWebcamHorizontally: 1
   _mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
   _shader: {fileID: -6465566751694194690, guid: 16c07cb31dc394130991e653f5967fac, type: 3}
@@ -373,7 +373,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78105262}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -682,8 +682,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flowDims:
-    x: 160
-    y: 96
+    x: 320
+    y: 192
   _blockDims:
     x: 80
     y: 48
@@ -1138,7 +1138,8 @@ MonoBehaviour:
   _decreaseAmplitudeKey: 15
   _increaseAmplitudeKey: 31
   _smoothness: 0.9
-  _flipOutputVertically: 1
+  _flipOutputVertically: 0
+  _flipOutputHorizontally: 1
   _diffDetector: {fileID: 7200000, guid: 7c4cd51c4330a4a9dbe1249e0ba0db49, type: 3}
   _shader: {fileID: 4800000, guid: 1d8652daa77dd4de2985e6073b945547, type: 3}
 --- !u!1 &727603989
@@ -2340,7 +2341,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.084905684, g: 0.084905684, b: 0.084905684, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -54,6 +54,9 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
     [SerializeField, Tooltip("Corrige l'orientation verticale de la sortie pour l'affichage et le VFX Graph")]
     bool _flipOutputVertically = true;
 
+    [SerializeField, Tooltip("Inverse horizontalement la sortie pour l'affichage et le VFX Graph")]
+    bool _flipOutputHorizontally = false;
+
     #endregion
 
     #region Project asset references
@@ -66,7 +69,8 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
     #region Public accessors
 
     public RenderTexture AsRenderTexture
-      => _flipOutputVertically ? _correctedFlow : _output.flow;
+      => _flipOutputHorizontally || _flipOutputVertically
+           ? _correctedFlow : _output.flow;
 
     #endregion
 
@@ -172,8 +176,14 @@ public sealed class OpticalFlowEstimator : MonoBehaviour
             Graphics.Blit(_smoothedFlow, _output.flow); // Copier le résultat lissé
         }
 
-        if (_flipOutputVertically)
+        if (_flipOutputHorizontally || _flipOutputVertically)
+        {
+            _blitter.Material.SetFloat
+              ("_FlipHorizontal", _flipOutputHorizontally ? 1 : 0);
+            _blitter.Material.SetFloat
+              ("_FlipVertical", _flipOutputVertically ? 1 : 0);
             _blitter.Run(_output.flow, _correctedFlow, 3);
+        }
 
         _buffer = (_buffer.cur, _buffer.prev);
     }

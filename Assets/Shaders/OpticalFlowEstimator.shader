@@ -13,6 +13,8 @@ StructuredBuffer<float4> _DiffMask;
 float _Threshold;
 float _Amplitude;
 float _Smoothness;
+float _FlipHorizontal;
+float _FlipVertical;
 
 static const int kWindowWidth = 5;
 
@@ -125,15 +127,20 @@ float4 FragmentSmooth(float4 position : SV_Position,
     return float4(smoothedFlow, 0, 1);
 }
 
-float4 FragmentFlipVertical(float4 position : SV_Position,
-                            float2 texCoord : TEXCOORD) : SV_Target
+float4 FragmentCorrectOrientation(float4 position : SV_Position,
+                                  float2 texCoord : TEXCOORD) : SV_Target
 {
-    // Flip both the vector field position and its Y direction. Flipping only
-    // the sampled rows would place the motion correctly but reverse its
-    // vertical direction in world space.
-    float2 flow = _MainTex.Sample
-      (sampler_MainTex, float2(texCoord.x, 1 - texCoord.y)).xy;
-    return float4(flow.x, -flow.y, 0, 1);
+    // Flip both the vector field position and its corresponding direction.
+    // Flipping only the sampled pixels would place the motion correctly but
+    // reverse its direction in world space.
+    float2 uv = texCoord;
+    uv.x = lerp(uv.x, 1 - uv.x, _FlipHorizontal);
+    uv.y = lerp(uv.y, 1 - uv.y, _FlipVertical);
+
+    float2 flow = _MainTex.Sample(sampler_MainTex, uv).xy;
+    flow.x = lerp(flow.x, -flow.x, _FlipHorizontal);
+    flow.y = lerp(flow.y, -flow.y, _FlipVertical);
+    return float4(flow, 0, 1);
 }
 
 ENDHLSL
@@ -173,7 +180,7 @@ ENDHLSL
             Blend Off
             HLSLPROGRAM
             #pragma vertex Vertex
-            #pragma fragment FragmentFlipVertical
+            #pragma fragment FragmentCorrectOrientation
             ENDHLSL
         }
     }
