@@ -3037,10 +3037,166 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!1 &2109000000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2109000001}
+  - component: {fileID: 2109000002}
+  m_Layer: 0
+  m_Name: OSC VFX Bridge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2109000001
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109000000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2109000002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109000000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ce256bb3c584fd4b8cbe2aef31e9c0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listenPort: 9000
+  maxMessagesPerFrame: 128
+  defaultTarget: {fileID: 805217383}
+  bindings:
+  - enabled: 0
+    address: /abysses/left/position
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 4
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/right/position
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 4
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/left/velocity
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 4
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/right/velocity
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 4
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/hands/distance
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 0
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/left/pinch
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 0
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/right/pinch
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 0
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/left/grab
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 0
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  - enabled: 0
+    address: /abysses/right/grab
+    firstArgument: 0
+    target: {fileID: 0}
+    property: 
+    type: 0
+    multiplier: 1
+    offset: 0
+    clamp: 0
+    limits: {x: 0, y: 1}
+    lastReceivedValues: []
+  allowSending: 0
+  remoteAddress: 127.0.0.1
+  remotePort: 9001
+  listening: 1
+  receivedMessages: 0
+  rejectedMessages: 0
+  lastAddress: 
+  lastValues: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 2109000001}
   - {fileID: 56093888}
   - {fileID: 1411473419}
   - {fileID: 1745324030}
